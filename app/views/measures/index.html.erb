@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Measures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Temp out</th>
+      <th>Temp in</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @measures.each do |measure| %>
+      <tr>
+        <td><%= measure.temp_out %></td>
+        <td><%= measure.temp_in %></td>
+        <td><%= link_to 'Show', measure %></td>
+        <td><%= link_to 'Edit', edit_measure_path(measure) %></td>
+        <td><%= link_to 'Destroy', measure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Measure', new_measure_path %>
