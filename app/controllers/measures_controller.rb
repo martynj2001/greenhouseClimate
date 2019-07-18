@@ -23,6 +23,7 @@ class MeasuresController < ApplicationController
 
   # POST /measures
   # POST /measures.json
+  # Recieve data from Arduino and save in database
   def create
     @measure = Measure.new(measure_params)
 
@@ -59,6 +60,15 @@ class MeasuresController < ApplicationController
       format.html { redirect_to measures_url, notice: 'Measure was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # Remove all table entries 
+  # Use for development purposes.
+  #GET /measures/remove_all
+  def remove_all
+    Measure.delete_all
+    flash[:notice] = "You have removed all measurements!"
+    redirect_to measures_path
   end
 
   private
