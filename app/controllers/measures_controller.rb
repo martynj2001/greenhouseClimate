@@ -5,6 +5,7 @@ class MeasuresController < ApplicationController
   # GET /measures.json
   def index
     @measures = Measure.all
+    @temp = Measure.temp_by_time
   end
 
   # GET /measures/1

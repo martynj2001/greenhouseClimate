@@ -1,29 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class='container'>
 
-<h1>Measures</h1>
+  <h3 class='p-3 text-centre'> Greenhouse Temperatures </h3>
+  <div id="chart" style="width: auto; height: 600px;"></div>
 
-<%= link_to 'Remove All', remove_all_measures_path %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Temp out</th>
-      <th>Temp in</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @measures.each do |measure| %>
+  <!--table>
+    <thead>
       <tr>
-        <td><%= measure.temp_out %></td>
-        <td><%= measure.temp_in %></td>
-        <td><%= link_to 'Show', measure %></td>
-        <td><%= link_to 'Edit', edit_measure_path(measure) %></td>
-        <td><%= link_to 'Destroy', measure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Date/Time</th>
+        <th>Temp out</th>
+        <th>Temp in</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @measures.each do |measure| %>
+        <tr>
+          <td><%= measure.created_at.strftime("%d %b @ %H:%M")%>
+          <td><%= measure.temp_out %></td>
+          <td><%= measure.temp_in %></td>
+          <td><%= link_to 'Show', measure %></td>
+          <td><%= link_to 'Edit', edit_measure_path(measure) %></td>
+          <td><%= link_to 'Destroy', measure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table-->
+
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  
+  <%= javascript_tag do -%>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = JSON.parse('<%= @temp.to_json.html_safe -%>');
+      data = [['Time', 'Outside Temp', 'Inside Temp']].concat(data);
+      data = google.visualization.arrayToDataTable(data);
+      var options = {
+          title: 'Outside Tempreture',
+          subtitle: "Celcius",
+          legend: {position: 'bottom'}
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart'));
+      chart.draw(data, options);
+    }
+  <% end -%>
+
+  <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
+  
+
+</div>
