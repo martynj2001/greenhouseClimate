@@ -4,7 +4,7 @@ class MeasuresController < ApplicationController
   # GET /measures
   # GET /measures.json
   def index
-    @measures = Measure.all
+    @measures = Measure.all.order("created_at DESC")
     @temp = Measure.temp_by_time
   end
 
@@ -80,6 +80,6 @@ class MeasuresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measure_params
-      params.require(:measure).permit(:temp_out, :temp_in)
+      params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in)
     end
 end

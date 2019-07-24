@@ -49,6 +49,14 @@
     }
   <% end -%>
 
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <h2>Humidity</h2>
+    <% unless @measures[0].nil? %>
+      <h3> Humidity Inside: <%=@measures[0].humidity_in%></h3>
+      <h3> Humidity Outside: <%=@measures[0].humidity_out%></h3>
+    <% end %>
+  </div>
+  
   <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
   
 
