@@ -1,7 +1,42 @@
 <div class='container'>
 
-  <h3 class='p-3 text-centre'> Greenhouse Temperatures </h3>
-  <div id="chart" style="width: auto; height: 600px;"></div>
+  <h3 class='p-3 text-center'> Greenhouse Live Data </h3>
+
+  <div id='latest_data' class="jumbotron p-1 p-md-5 text-white text-center rounded bg-dark">
+    <h2 class = 'orbitron p-3'>Latest Data</h2>
+    <% unless @measures[0].nil? %>
+      <div class='row'>
+        <h5 class = 'col-md-6 col-xs-6 orbitron'> Temperature: </h5>
+        <div class = 'col-md-6 col-xs-6'>
+          <p class = 'orbitron text-left'> Inside Greenhouse:  <%=@measures[0].temp_in%>&#8451;</p>
+          <p class = 'orbitron text-left'> Outside Greenhouse:  <%=@measures[0].temp_out%>&#8451;</p>
+        </div>
+      </div>
+      <div class='row'>
+        <h5 class = 'col-md-6 col-xs-6 orbitron'> Humidity: </h5>
+        <div class = 'col-md-6 col-xs-6'>
+          <p class = 'orbitron text-left'> Humidity Inside:  <%=@measures[0].humidity_in%>%</p>
+          <p class = 'orbitron text-left'> Humidity Outside:  <%=@measures[0].humidity_out%>%</p>
+        </div>
+      </div>
+      <p class = 'orbitron text-left'>Last Updated: <%=@measures[0].created_at%></p>
+    <% end %>
+    
+  </div>
+
+
+  <%= line_chart charts_hour_temp_out_path, refresh: 60, xtitle: "Time", ytitle: "Temperature", messages:{empty: "Sorry.... No Data Yet!"}%>
+  <%= line_chart charts_hour_temp_in_path, refresh: 60, xtitle: "Time", ytitle: "Temperature", messages:{empty: "Sorry.... No Data Yet!"}%>
+  <%= line_chart charts_hour_humidity_out_path, refresh: 60, xtitle: "Time", ytitle: "Humidity", suffix: "%", messages:{empty: "Sorry.... No Data Yet!"}%>
+  <%= line_chart charts_hour_humidity_in_path, refresh: 60, xtitle: "Time", ytitle: "Humidity", suffix: "%", messages:{empty: "Sorry.... No Data Yet!"}%>
+
+  <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
+  
+
+</div>
+
+
+<!--div id="chart" style="width: auto; height: 600px;"></div-->
 
   <!--table>
     <thead>
@@ -12,7 +47,9 @@
         <th colspan="3"></th>
       </tr>
     </thead>
-
+bundle config --delete bin    # Turn off Bundler's stub generator
+  rails app:update:bin          # Use the new Rails executables
+  git add bin             
     <tbody>
       <% @measures.each do |measure| %>
         <tr>
@@ -28,9 +65,9 @@
   </table-->
 
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <!--script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script-->
   
-  <%= javascript_tag do -%>
+  <!--%= javascript_tag do -%>
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -47,17 +84,4 @@
       var chart = new google.visualization.LineChart(document.getElementById('chart'));
       chart.draw(data, options);
     }
-  <% end -%>
-
-  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-    <h2>Humidity</h2>
-    <% unless @measures[0].nil? %>
-      <h3> Humidity Inside: <%=@measures[0].humidity_in%></h3>
-      <h3> Humidity Outside: <%=@measures[0].humidity_out%></h3>
-    <% end %>
-  </div>
-  
-  <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
-  
-
-</div>
+    <% end -%-->

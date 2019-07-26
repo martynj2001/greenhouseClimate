@@ -39,6 +39,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Custom Gems
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+gem 'chartkick'
+gem 'groupdate'
 # End Ciustom Gems
 
 group :development, :test do
