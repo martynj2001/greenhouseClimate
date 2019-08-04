@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     get "week_humidity_out"
     get "week_humidity_in"
   end
+
+  match '/pump_status' => 'pump#pump_status', via: :get
   
 end
