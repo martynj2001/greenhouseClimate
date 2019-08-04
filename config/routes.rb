@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  get 'pump/pump_status'
+  get 'pump/set_pump_status'
+  
   resources :measures do
     collection do
       get 'remove_all'
@@ -18,7 +22,5 @@ Rails.application.routes.draw do
     get "week_humidity_out"
     get "week_humidity_in"
   end
-
-  match '/pump_status' => 'pump#pump_status', via: :get
   
 end
