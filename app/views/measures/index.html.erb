@@ -19,7 +19,13 @@
           <p class = 'orbitron text-left'> Humidity Outside:  <%=@measures[0].humidity_out%>%</p>
         </div>
       </div>
-      <p class = 'orbitron text-left'>Last Updated: <%=@measures[0].created_at%></p>
+  
+        <p class = 'orbitron text-center'>Last Updated: <%=@measures[0].created_at%></p>
+      
+      <div class='row'>
+        <div class = 'col-md-6 col-xs-6'><%= link_to 'Water Greenhouse', pump_set_pump_status_path(:status => "|1|"), class: 'btn btn-sm btn-outline-success' %></div>
+        <div class = 'col-md-6 col-xs-6'><%= link_to 'Stop Watering Greenhouse', pump_set_pump_status_path(:status => "|0|"), class: 'btn btn-sm btn-outline-danger' %></div>
+      </div>
     <% end %>
     
   </div>
@@ -31,9 +37,6 @@
   <%= line_chart charts_hour_humidity_in_path, refresh: 60, xtitle: "Time", ytitle: "Humidity", suffix: "%", messages:{empty: "Sorry.... No Data Yet!"}%>
 
   <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
-  <%= link_to 'Water Greenhouse', pump_set_pump_status_path(:status => "|1|"), class: 'btn btn-sm btn-outline-success' %>
-  <%= link_to 'Stop Watering Greenhouse', pump_set_pump_status_path(:status => "|0|"), class: 'btn btn-sm btn-outline-danger' %>
-  
 
 </div>
 
