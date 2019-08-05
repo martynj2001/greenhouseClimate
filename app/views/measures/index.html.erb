@@ -31,8 +31,8 @@
   <%= line_chart charts_hour_humidity_in_path, refresh: 60, xtitle: "Time", ytitle: "Humidity", suffix: "%", messages:{empty: "Sorry.... No Data Yet!"}%>
 
   <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
-  <%= link_to 'Water Greenhouse', pump_set_pump_status_path(:status => "ON"), class: 'btn btn-sm btn-outline-success' %>
-  <%= link_to 'Stop Watering Greenhouse', pump_set_pump_status_path(:status => "OFF"), class: 'btn btn-sm btn-outline-danger' %>
+  <%= link_to 'Water Greenhouse', pump_set_pump_status_path(:status => "||1||"), class: 'btn btn-sm btn-outline-success' %>
+  <%= link_to 'Stop Watering Greenhouse', pump_set_pump_status_path(:status => "||0||"), class: 'btn btn-sm btn-outline-danger' %>
   
 
 </div>
