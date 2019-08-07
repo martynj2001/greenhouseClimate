@@ -19,6 +19,20 @@
           <p class = 'orbitron text-left'> Humidity Outside:  <%=@measures[0].humidity_out%>%</p>
         </div>
       </div>
+      <div class='row'>
+        <h5 class = 'col-md-6 col-xs-6 orbitron'> Soil Moisture - Tomatoes: </h5>
+        <div class = 'col-md-6 col-xs-6'>
+        
+          <%if @measures[0].soil_moisture == 0%>
+             <p class = 'orbitron text-left test-success'> The Soil is currently WET </p>
+          <% elsif @measures[0].soil_moisture == 1%>
+            <p class = 'orbitron text-left test-danger'> The Soil is currently DRY </p>
+          <% elsif @measures[0].soil_moisture == 3%>
+            <p class = 'orbitron text-left test-primary'> The Soil is currently VERY WET </p>
+          <%end%>
+          
+        </div>
+      </div>
   
         <p class = 'orbitron text-center'>Last Updated: <%=@measures[0].created_at%></p>
       
