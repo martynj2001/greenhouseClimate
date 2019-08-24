@@ -52,6 +52,29 @@
 
   <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
 
+  <table class='table'>
+    <thead>
+      <tr>
+        <th scope='col'>#</th>
+        <th scope='col'>Temp_Out</th>
+        <th scope='col'>Temp_In</th>
+        <th scope='col'>Humidity_Out</th>
+        <th scope='col'>Humidity_In</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @measures.each do |measure|%>
+      <tr>
+        <td><%= measure.id %></td>
+        <td><%= measure.temp_out%></td>
+        <td><%= measure.temp_in%></td>
+        <td><%= measure.humidity_out%></td>
+        <td><%= measure.humidity_in%></td>
+      </tr>
+      <% end %>
+    <tbody>
+  </table>
+
 </div>
 
 
