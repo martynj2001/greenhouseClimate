@@ -33,7 +33,6 @@ class MeasuresController < ApplicationController
         format.html { redirect_to @measure, notice: 'Measure was successfully created.' }
         format.json { render :show, status: :created, location: @measure }
         MeasureCleanupJob.set(wait: 36.hours).perform_later @measure
-        #MeasureCleanupJob.perform_later @measure
       else
         format.html { render :new }
         format.json { render json: @measure.errors, status: :unprocessable_entity }
