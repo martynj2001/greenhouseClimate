@@ -4,7 +4,7 @@ class ChartsController < ApplicationController
     end
 
     def hour_temp_in
-        render json: Measure.group_by_hour(:created_at, last: 24).average(:temp_out)
+        render json: Measure.group_by_hour(:created_at, last: 24).average(:temp_in)
     end
 
     def hour_humidity_out

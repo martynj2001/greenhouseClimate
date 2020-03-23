@@ -1,5 +1,7 @@
 class Measure < ApplicationRecord
 
+    scope :recent, -> {where('created_at >= :thirty_six_hours_ago', thirty_six_hours_ago: Time.now - 36.hours)}
+
     def self.temp_by_time
 
         find_by_sql(<<-SQL

@@ -32,6 +32,7 @@ class MeasuresController < ApplicationController
       if @measure.save
         format.html { redirect_to @measure, notice: 'Measure was successfully created.' }
         format.json { render :show, status: :created, location: @measure }
+        MeasureCleanupJob.set(wait: 36.hours).perform_later @measure
       else
         format.html { render :new }
         format.json { render json: @measure.errors, status: :unprocessable_entity }
@@ -80,6 +81,6 @@ class MeasuresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measure_params
-      params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in)
+      params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in, :soil_moisture)
     end
 end
