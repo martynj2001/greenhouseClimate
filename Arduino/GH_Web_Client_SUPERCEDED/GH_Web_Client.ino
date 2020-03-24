@@ -24,6 +24,8 @@ const char server[] = "thingspeak.com";
 const char api[] = "C15OQSWBADGXXRMD";
 
 unsigned long lastConnectionTime = 0;         // last time you connected to the server, in milliseconds
+/* postinginterval - set the time between updating the web server - 30000 = every 30 seconds. 
+Production version needs to set this to 60 or 30 mins  */
 const unsigned long postingInterval = 30000; // delay between updates, in milliseconds
 
 // Initialize the Ethernet client object
