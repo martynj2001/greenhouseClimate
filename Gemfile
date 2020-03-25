@@ -42,6 +42,9 @@ gem 'jquery-rails'
 gem 'chartkick'
 gem 'groupdate'
 gem 'sidekiq'
+gem 'twitter'
+gem 'darksky_weather-api'
+
 # End Custom Gems
 
 group :development, :test do
