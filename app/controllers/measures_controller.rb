@@ -6,6 +6,8 @@ class MeasuresController < ApplicationController
   def index
     @measures = Measure.all.order("created_at DESC")
     @temp = Measure.temp_by_time
+
+    
   end
 
   # GET /measures/1
