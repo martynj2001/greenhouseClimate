@@ -1,13 +1,24 @@
 class MeasuresController < ApplicationController
   before_action :set_measure, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /measures
   # GET /measures.json
   def index
-    @measures = Measure.all.order("created_at DESC")
-    @temp = Measure.temp_by_time
 
-    
+    require 'net/http'
+    require 'json'
+
+    @measures = Measure.all.order("created_at DESC")
+
+    @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,alerts,flags&units=auto')
+
+  end
+
+  # Method call and processes the DarkSky API to produc local westher forcast
+  # Selects teh correct icon to be displayed
+
+  def weatherData 
+    @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,alerts,flags&units=auto')
   end
 
   # GET /measures/1

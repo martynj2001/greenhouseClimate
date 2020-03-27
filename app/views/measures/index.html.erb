@@ -2,6 +2,14 @@
 
   <h3 class='p-3 text-center'> Greenhouse Live Data </h3>
 
+  <p>Current Weather: <%=@weather_data ['currently']['summary']%></p>
+  <p>Current Tempreture: <%=@weather_data ['currently']['temperature']%>&#8451;  Feels like: <%=@weather_data ['currently']['apparentTemperature']%>&#8451;</p>
+  <p>Percipitation: <%=@weather_data ['currently']['precipProbability'] * 100%>&#37; chance of <%=@weather_data ['currently']['precipType']%></p>
+
+  <%=@weather_data%>
+  
+
+
   <div id='latest_data' class="jumbotron p-1 p-md-5 text-white text-center rounded bg-dark">
     <h2 class = 'orbitron p-3'>Latest Data</h2>
     <% unless @measures[0].nil? %>
