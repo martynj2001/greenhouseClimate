@@ -10,15 +10,7 @@ class MeasuresController < ApplicationController
 
     @measures = Measure.all.order("created_at DESC")
 
-    @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,alerts,flags&units=auto')
-
-  end
-
-  # Method call and processes the DarkSky API to produc local westher forcast
-  # Selects teh correct icon to be displayed
-
-  def weatherData 
-    @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,alerts,flags&units=auto')
+    weatherData
   end
 
   # GET /measures/1
@@ -96,4 +88,34 @@ class MeasuresController < ApplicationController
     def measure_params
       params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in, :soil_moisture)
     end
+
+  # Method call and processes the DarkSky API to produc local westher forcast
+  # Selects teh correct icon to be displayed
+  def weatherData 
+
+    icons = {
+      "clear-day" => "pe-7w-sun",
+      "clear-night" => "pe-7w-moon",
+      "rain" => "pe-7w-rain-alt",
+      "snow" => "pe-7w-snow-alt",
+      "sleet" => "pe-7w-snow",
+      "wind" => "pe-7w-wind",
+      "fog" => "pe-7w-fog",
+      "cloudy" => "pe-7w-cloud",
+      "partly-cloudy-day" => "pe-7w-cloud-sun",
+      "partly-cloudy-night" => "pe-7w-cloud-moon", 
+      "default" => "pe-7w-thermometer-full",
+    }
+    
+    @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
+
+    @current_time = Time.at(@weather_data ['currently']['time'].to_i)
+    @current_summary = @weather_data ['currently']['summary']
+
+    @current_icon = icons [@weather_data ['currently']['icon']]
+    
+
+
+  end
+
 end
