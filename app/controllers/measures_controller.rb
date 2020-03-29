@@ -109,12 +109,21 @@ class MeasuresController < ApplicationController
     
     @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
 
+	# Current Weather
     @current_time = Time.at(@weather_data ['currently']['time'].to_i)
     @current_summary = @weather_data ['currently']['summary']
-
     @current_icon = icons [@weather_data ['currently']['icon']]
+    @current_temp = @weather_data ['currently']['temperature']
+    @current_temp_feels = @weather_data ['currently']['apparentTemperature']
+    @current_humidity = @weather_data ['currently']['humidity']
+    @currnet_windspeed = @weather_data ['currently']['windSpeed']
+    @current_windgust = @weather_data ['currently']['windGust']
+    @current_windbearing = @weather_data ['currently']['windBearing']
+    @current_cloudcover = @weather_data ['currently']['cloudCover']
+    @current_uvindex = @weather_data ['currently']['uvIndex']
     
-
+    #weather forcast
+    @weekly_summary = @weather_data ['currently']['uvIndex']
 
   end
 

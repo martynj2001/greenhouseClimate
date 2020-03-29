@@ -10,9 +10,13 @@
       <div class = 'col-md-8 col-xs-6'>
         <p class = 'my-0 text-left'><%=%></p>
         <p class = 'my-0 text-left'>Current Tempreture: <%=@weather_data ['currently']['temperature']%>&#8451;</p>
-        <p class = 'my-0 text-left'><em>Feels like: <%=@weather_data ['currently']['apparentTemperature']%>&#8451;</em></p>
+        <p class = 'my-0 text-left'><em>Feels like: <%= ['currently']['apparentTemperature']%>&#8451;</em></p>
         <p class = 'my-0 text-left'><%=@weather_data ['currently']['precipProbability'] * 100%> chance of Percipitation</p>
       </div>
+    </div>
+    
+    <div class='row'>
+    	<p class = 'my-0 text-center'><%=@weekly_summary%></p>
     </div>
 
     <div class='row'> 
@@ -66,9 +70,7 @@
       </div> 
     </div>
     <p class = 'text-muted text-center'> <em>Last Updated on </em> <%=@current_time.strftime("%d %b %y @ %k:%M ")%></p> 
-  </div>
-
-  <div id='latest_data' class="jumbotron p-1 p-md-5 text-white text-center rounded bg-dark">
+    <p l">
     <h2 class = 'orbitron p-3'>Latest Data</h2>
     <% unless @measures[0].nil? %>
       <div class='row'>
