@@ -109,13 +109,52 @@ class MeasuresController < ApplicationController
     
     weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
 
+	# Current Weather
     @current_time = Time.at(weather_data ['currently']['time'].to_i)
     @current_summary = weather_data ['currently']['summary']
-    # Need to include error checking in case returns 'null' and therfore use 'default'
     @current_icon = icons [weather_data ['currently']['icon']]
-    @current_temp = weather_data ['currently']['tempreture']
-    @current_feel_temp = weather_data ['currently']['apparentTemperature']
+    @current_temp = weather_data ['currently']['temperature'].to_i
+    @current_temp_feels = weather_data ['currently']['apparentTemperature'].to_i
+    @current_humidity = weather_data ['currently']['humidity']
+    @currnet_windspeed = weather_data ['currently']['windSpeed']
+    @current_windgust = weather_data ['currently']['windGust']
+    @current_windbearing = weather_data ['currently']['windBearing']
+    @current_cloudcover = weather_data ['currently']['cloudCover']
+    @current_uvindex = weather_data ['currently']['uvIndex']
+    @current_percp = weather_data ['currently']['precipProbability'] * 100
+    
+    #weather forcast
+    @weekly_summary = weather_data ['daily']['summary']
+    # Next 6 days
+    @day_one_time = Time.at( weather_data ['daily']['data'][0]['time'].to_i)
+    @day_one_icon = icons [weather_data ['daily']['data'][0]['icon']]
+    @day_one_hi = weather_data ['daily']['data'][0]['temperatureHigh'].to_i
+    @day_one_low = weather_data ['daily']['data'][0]['temperatureLow'].to_i
+   
+    @day_two_time = Time.at( weather_data ['daily']['data'][1]['time'].to_i)
+    @day_two_icon = icons [weather_data ['daily']['data'][1]['icon']]
+    @day_two_hi = weather_data ['daily']['data'][1]['temperatureHigh'].to_i
+    @day_two_low = weather_data ['daily']['data'][1]['temperatureLow'].to_i
 
+    @day_three_time = Time.at( weather_data ['daily']['data'][2]['time'].to_i)
+    @day_three_icon = icons [weather_data ['daily']['data'][2]['icon']]
+    @day_three_hi = weather_data ['daily']['data'][2]['temperatureHigh'].to_i
+    @day_three_low = weather_data ['daily']['data'][2]['temperatureLow'].to_i
+
+    @day_four_time = Time.at( weather_data ['daily']['data'][3]['time'].to_i)
+    @day_four_icon = icons [weather_data ['daily']['data'][3]['icon']]
+    @day_four_hi = weather_data ['daily']['data'][3]['temperatureHigh'].to_i
+    @day_four_low = weather_data ['daily']['data'][3]['temperatureLow'].to_i
+
+    @day_five_time = Time.at( weather_data ['daily']['data'][4]['time'].to_i)
+    @day_five_icon = icons [weather_data ['daily']['data'][4]['icon']]
+    @day_five_hi = weather_data ['daily']['data'][4]['temperatureHigh'].to_i
+    @day_five_low = weather_data ['daily']['data'][4]['temperatureLow'].to_i
+
+    @day_six_time = Time.at( weather_data ['daily']['data'][5]['time'].to_i)
+    @day_six_icon = icons [weather_data ['daily']['data'][5]['icon']]
+    @day_six_hi = weather_data ['daily']['data'][5]['temperatureHigh'].to_i
+    @day_six_low = weather_data ['daily']['data'][5]['temperatureLow'].to_i
 
   end
 

@@ -8,67 +8,71 @@
     <div class='row'> 
       <h5 class = 'col-md-4 col-xs-6'><i class='<%=@current_icon%> icon-lg'></i></h5>
       <div class = 'col-md-8 col-xs-6'>
-        <p class = 'my-0 text-left'><%=@current_summary%></p>
+        <p class = 'my-0 text-left'><%=%></p>
         <p class = 'my-0 text-left'>Current Tempreture: <%=@current_temp%>&#8451;</p>
-        <p class = 'my-0 text-left'><em>Feels like: <%=@current_feel_temp%>&#8451;</em></p>
-        <p class = 'my-0 text-left'><%=%> chance of Percipitation</p>
+        <p class = 'my-0 text-left'><em>Feels like: <%= @current_temp_feels%>&#8451;</em></p>
+        <p class = 'my-0 text-left'><%=@current_percp%> chance of Percipitation</p>
       </div>
+    </div>
+    
+    <div class='row'>
+    	<p class = 'my-0 text-center'><%=@weekly_summary%></p>
     </div>
 
     <div class='row'> 
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
-          <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
-          <h5> +24 hrs</h5>
+          <i class='<%=@day_one_icon%> icon-sm'></i>
+          <p class = 'my-0 text-center'>Hi: <%=@day_one_hi%>&#8451;</p>
+          <p class = 'my-0 text-center'>Low: <%=@day_one_low%>&#8451;</p>
+          <h5> <%=@day_one_time.strftime("%a")%></h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
-          <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
-          <h5> +24 hrs</h5>
+          <i class='<%=@day_two_icon%> icon-sm'></i>
+          <p class = 'my-0 text-center'>Hi: <%=@day_two_hi%>&#8451;</p>
+          <p class = 'my-0 text-center'>Low: <%=@day_two_low%>&#8451;</p>
+          <h5> <%=@day_two_time.strftime("%a")%></h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
-          <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
-          <h5> +24 hrs</h5>
+          <i class='<%=@day_three_icon%> icon-sm'></i>
+          <p class = 'my-0 text-center'>Hi: <%=@day_three_hi%>&#8451;</p>
+          <p class = 'my-0 text-center'>Low: <%=@day_three_low%>&#8451;</p>
+          <h5> <%=@day_three_time.strftime("%a")%></h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
-          <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
-          <h5> +24 hrs</h5>
+          <i class='<%=@day_four_icon%> icon-sm'></i>
+          <p class = 'my-0 text-center'>Hi: <%=@day_four_hi%>&#8451;</p>
+          <p class = 'my-0 text-center'>Low: <%=@day_four_low%>&#8451;</p>
+          <h5> <%=@day_four_time.strftime("%a")%></h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
-          <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
-          <h5> +24 hrs</h5>
+          <i class='<%=@day_five_icon%> icon-sm'></i>
+          <p class = 'my-0 text-center'>Hi: <%=@day_five_hi%>&#8451;</p>
+          <p class = 'my-0 text-center'>Low: <%=@day_five_low%>&#8451;</p>
+          <h5> <%=@day_five_time.strftime("%a")%></h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
-          <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
-          <h5> +24 hrs</h5>
+          <i class='<%=@day_six_icon%> icon-sm'></i>
+          <p class = 'my-0 text-center'>Hi: <%=@day_six_hi%>&#8451;</p>
+          <p class = 'my-0 text-center'>Low: <%=@day_six_low%>&#8451;</p>
+          <h5> <%=@day_six_time.strftime("%a")%></h5>
         </div>
       </div> 
     </div>
     <p class = 'text-muted text-center'> <em>Last Updated on </em> <%=@current_time.strftime("%d %b %y @ %k:%M ")%></p> 
   </div>
 
-  <div id='latest_data' class="jumbotron p-1 p-md-5 text-white text-center rounded bg-dark">
+    <div id='latest_data' class="jumbotron p-1 p-md-5 text-center text-white rounded bg-dark">
     <h2 class = 'orbitron p-3'>Latest Data</h2>
     <% unless @measures[0].nil? %>
       <div class='row'>
