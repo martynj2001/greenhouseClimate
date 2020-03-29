@@ -112,7 +112,8 @@ class MeasuresController < ApplicationController
 	# Current Weather
     @current_time = Time.at(weather_data ['currently']['time'].to_i)
     @current_summary = weather_data ['currently']['summary']
-    @current_icon = icons [weather_data ['currently']['icon']]
+    
+    @current_icon = icons.fetch(weather_data ['currently']['icon'],"pe-7w-thermometer-full")
     @current_temp = weather_data ['currently']['temperature'].to_i
     @current_temp_feels = weather_data ['currently']['apparentTemperature'].to_i
     @current_humidity = weather_data ['currently']['humidity']
