@@ -1,17 +1,17 @@
 <div class='container'>
 
-  <h3 class='p-3 text-center'> Greenhouse Live Data </h3>
+  <h3 class='p-3 text-center'> Garden Live Data </h3>
 
   <div id='latest_data' class="jumbotron p-1 p-md-5 text-center rounded bg-light">
     <h2>Local Current & Forecasted Weather</h2>
     
     <div class='row'> 
-      <h5 class = 'col-md-4 col-xs-6'><i class='<%@current_icon%> icon-lg'></i></h5>
+      <h5 class = 'col-md-4 col-xs-6'><i class='<%=@current_icon%> icon-lg'></i></h5>
       <div class = 'col-md-8 col-xs-6'>
-        <p class = 'my-0 text-left'><%=%></p>
-        <p class = 'my-0 text-left'>Current Tempreture: <%=@weather_data ['currently']['temperature']%>&#8451;</p>
-        <p class = 'my-0 text-left'><em>Feels like: <%=@weather_data ['currently']['apparentTemperature']%>&#8451;</em></p>
-        <p class = 'my-0 text-left'><%=@weather_data ['currently']['precipProbability'] * 100%> chance of Percipitation</p>
+        <p class = 'my-0 text-left'><%=@current_summary%></p>
+        <p class = 'my-0 text-left'>Current Tempreture: <%=@current_temp%>&#8451;</p>
+        <p class = 'my-0 text-left'><em>Feels like: <%=@current_feel_temp%>&#8451;</em></p>
+        <p class = 'my-0 text-left'><%=%> chance of Percipitation</p>
       </div>
     </div>
 
@@ -19,48 +19,48 @@
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
           <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
+          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
+          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
           <h5> +24 hrs</h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
           <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
+          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
+          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
           <h5> +24 hrs</h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
           <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
+          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
+          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
           <h5> +24 hrs</h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
           <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
+          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
+          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
           <h5> +24 hrs</h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
           <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
+          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
+          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
           <h5> +24 hrs</h5>
         </div>
       </div>
       <div class = 'col-md-2 col-xs-1'>
         <div class = 'jumbotron p-1 text-center rounded border'>
           <i class='pe-7w-rain-alt icon-sm'></i>
-          <p class = 'my-0 text-center'>Hi: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
-          <p class = 'my-0 text-center'>Low: <%=@weather_data ['currently']['temperature']%>&#8451; </p>
+          <p class = 'my-0 text-center'>Hi: <%=%>&#8451; </p>
+          <p class = 'my-0 text-center'>Low: <%=%>&#8451; </p>
           <h5> +24 hrs</h5>
         </div>
       </div> 

@@ -107,13 +107,14 @@ class MeasuresController < ApplicationController
       "default" => "pe-7w-thermometer-full",
     }
     
-    @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
+    weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
 
-    @current_time = Time.at(@weather_data ['currently']['time'].to_i)
-    @current_summary = @weather_data ['currently']['summary']
-
-    @current_icon = icons [@weather_data ['currently']['icon']]
-    
+    @current_time = Time.at(weather_data ['currently']['time'].to_i)
+    @current_summary = weather_data ['currently']['summary']
+    # Need to include error checking in case returns 'null' and therfore use 'default'
+    @current_icon = icons [weather_data ['currently']['icon']]
+    @current_temp = weather_data ['currently']['tempreture']
+    @current_feel_temp = weather_data ['currently']['apparentTemperature']
 
 
   end
