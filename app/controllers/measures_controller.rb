@@ -9,7 +9,7 @@ class MeasuresController < ApplicationController
 
     @measures = Measure.all.order("created_at DESC")
     weatherData
-    
+
   end
 
   # GET /measures/1
@@ -144,7 +144,7 @@ class MeasuresController < ApplicationController
       #weather forcast
       @weekly_summary = @weather_data ['daily']['summary']
       # Next 6 days
-      @day_one_time = Time.at( @weather_data ['daily']['data'][1]['time'].to_i)
+      @day_one_time = Time.at( @weather_data ['daily']['data'][0]['time'].to_i)
       @day_one_icon = icons [@weather_data ['daily']['data'][1]['icon']]
       @day_one_hi = @weather_data ['daily']['data'][1]['temperatureHigh'].to_i
       @day_one_low = @weather_data ['daily']['data'][1]['temperatureLow'].to_i
