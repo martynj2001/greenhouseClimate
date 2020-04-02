@@ -1,6 +1,5 @@
 class MeasuresController < ApplicationController
   before_action :set_measure, only: [:show, :edit, :update, :destroy]
-  
   # GET /measures
   # GET /measures.json
   def index
@@ -9,8 +8,8 @@ class MeasuresController < ApplicationController
     require 'json'
 
     @measures = Measure.all.order("created_at DESC")
-
     weatherData
+    
   end
 
   # GET /measures/1
@@ -32,7 +31,7 @@ class MeasuresController < ApplicationController
   # Recieve data from Arduino and save in database
   def create
     @measure = Measure.new(measure_params)
-
+    
     respond_to do |format|
       if @measure.save
         format.html { redirect_to @measure, notice: 'Measure was successfully created.' }
@@ -43,6 +42,7 @@ class MeasuresController < ApplicationController
         format.json { render json: @measure.errors, status: :unprocessable_entity }
       end
     end
+    
   end
 
   # PATCH/PUT /measures/1
@@ -89,74 +89,91 @@ class MeasuresController < ApplicationController
       params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in, :soil_moisture)
     end
 
-  # Method call and processes the DarkSky API to produc local westher forcast
-  # Selects teh correct icon to be displayed
-  def weatherData 
+    def setOnline(state)
+      @online = state
+    end
 
-    icons = {
-      "clear-day" => "pe-7w-sun",
-      "clear-night" => "pe-7w-moon",
-      "rain" => "pe-7w-rain-alt",
-      "snow" => "pe-7w-snow-alt",
-      "sleet" => "pe-7w-snow",
-      "wind" => "pe-7w-wind",
-      "fog" => "pe-7w-fog",
-      "cloudy" => "pe-7w-cloud",
-      "partly-cloudy-day" => "pe-7w-cloud-sun",
-      "partly-cloudy-night" => "pe-7w-cloud-moon", 
-      "default" => "pe-7w-thermometer-full",
-    }
-    
-    weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
+    # Method call and processes the DarkSky API to produc local westher forcast
+    # Selects teh correct icon to be displayed
+    def weatherData 
 
-	# Current Weather
-    @current_time = Time.at(weather_data ['currently']['time'].to_i)
-    @current_summary = weather_data ['currently']['summary']
-    
-    @current_icon = icons.fetch(weather_data ['currently']['icon'],"pe-7w-thermometer-full")
-    @current_temp = weather_data ['currently']['temperature'].to_i
-    @current_temp_feels = weather_data ['currently']['apparentTemperature'].to_i
-    @current_humidity = weather_data ['currently']['humidity']
-    @currnet_windspeed = weather_data ['currently']['windSpeed']
-    @current_windgust = weather_data ['currently']['windGust']
-    @current_windbearing = weather_data ['currently']['windBearing']
-    @current_cloudcover = weather_data ['currently']['cloudCover']
-    @current_uvindex = weather_data ['currently']['uvIndex']
-    @current_percp = weather_data ['currently']['precipProbability'] * 100
-    
-    #weather forcast
-    @weekly_summary = weather_data ['daily']['summary']
-    # Next 6 days
-    @day_one_time = Time.at( weather_data ['daily']['data'][0]['time'].to_i)
-    @day_one_icon = icons [weather_data ['daily']['data'][0]['icon']]
-    @day_one_hi = weather_data ['daily']['data'][0]['temperatureHigh'].to_i
-    @day_one_low = weather_data ['daily']['data'][0]['temperatureLow'].to_i
-   
-    @day_two_time = Time.at( weather_data ['daily']['data'][1]['time'].to_i)
-    @day_two_icon = icons [weather_data ['daily']['data'][1]['icon']]
-    @day_two_hi = weather_data ['daily']['data'][1]['temperatureHigh'].to_i
-    @day_two_low = weather_data ['daily']['data'][1]['temperatureLow'].to_i
+      icons = {
+        "clear-day" => "pe-7w-sun",
+        "clear-night" => "pe-7w-moon",
+        "rain" => "pe-7w-rain-alt",
+        "snow" => "pe-7w-snow-alt",
+        "sleet" => "pe-7w-snow",
+        "wind" => "pe-7w-wind",
+        "fog" => "pe-7w-fog",
+        "cloudy" => "pe-7w-cloud",
+        "partly-cloudy-day" => "pe-7w-cloud-sun",
+        "partly-cloudy-night" => "pe-7w-cloud-moon", 
+        "default" => "pe-7w-thermometer-full",
+      }
+      
+      @weather_data = HTTParty.get('https://api.darksky.net/forecast/f3d5dcb788b60bc988305e4ba4bf0fe9/51.208168,-1.516628?exclude=hourly,minutely,flags&units=auto')
 
-    @day_three_time = Time.at( weather_data ['daily']['data'][2]['time'].to_i)
-    @day_three_icon = icons [weather_data ['daily']['data'][2]['icon']]
-    @day_three_hi = weather_data ['daily']['data'][2]['temperatureHigh'].to_i
-    @day_three_low = weather_data ['daily']['data'][2]['temperatureLow'].to_i
+    # Current Weather
+      @current_time = Time.at(@weather_data ['currently']['time'].to_i)
+      @current_summary = @weather_data ['currently']['summary']
+      
+      @current_icon = icons.fetch(@weather_data ['currently']['icon'],"pe-7w-thermometer-full")
+      @current_temp = @weather_data ['currently']['temperature'].to_i
+      @current_temp_feels = @weather_data ['currently']['apparentTemperature'].to_i
+      @current_humidity = (@weather_data ['currently']['humidity'] * 100).to_i
+      @current_windspeed = @weather_data ['currently']['windSpeed'].to_i
+      @current_windgust = @weather_data ['currently']['windGust'].to_i
+      @current_windbearing = @weather_data ['currently']['windBearing']
+      @current_cloudcover = (@weather_data ['currently']['cloudCover'] * 100).to_i
+      @current_uvindex = @weather_data ['currently']['uvIndex']
+      if @current_uvindex <= 2
+        @uvindex = 'bg-succes'
+      elsif @current_uvindex <= 5
+        @uvindex = 'bg-yellow'
+      elsif @current_uvindex <= 7
+        @uvindex = 'bg-warning'
+      elsif @current_uvindex <= 10
+        @uvindex = 'bg-danger'
+      elsif @current_uvindex < 10
+        @uvindex = 'bg-violet'
+      else 
+        @uvindex = 'bg-transparent'
+      end
+      @current_percp = (@weather_data ['currently']['precipProbability'] * 100).to_i
+      
+      #weather forcast
+      @weekly_summary = @weather_data ['daily']['summary']
+      # Next 6 days
+      @day_one_time = Time.at( @weather_data ['daily']['data'][1]['time'].to_i)
+      @day_one_icon = icons [@weather_data ['daily']['data'][1]['icon']]
+      @day_one_hi = @weather_data ['daily']['data'][1]['temperatureHigh'].to_i
+      @day_one_low = @weather_data ['daily']['data'][1]['temperatureLow'].to_i
 
-    @day_four_time = Time.at( weather_data ['daily']['data'][3]['time'].to_i)
-    @day_four_icon = icons [weather_data ['daily']['data'][3]['icon']]
-    @day_four_hi = weather_data ['daily']['data'][3]['temperatureHigh'].to_i
-    @day_four_low = weather_data ['daily']['data'][3]['temperatureLow'].to_i
+      @day_two_time = Time.at( @weather_data ['daily']['data'][2]['time'].to_i)
+      @day_two_icon = icons [@weather_data ['daily']['data'][2]['icon']]
+      @day_two_hi = @weather_data ['daily']['data'][2]['temperatureHigh'].to_i
+      @day_two_low = @weather_data ['daily']['data'][2]['temperatureLow'].to_i
 
-    @day_five_time = Time.at( weather_data ['daily']['data'][4]['time'].to_i)
-    @day_five_icon = icons [weather_data ['daily']['data'][4]['icon']]
-    @day_five_hi = weather_data ['daily']['data'][4]['temperatureHigh'].to_i
-    @day_five_low = weather_data ['daily']['data'][4]['temperatureLow'].to_i
+      @day_three_time = Time.at( @weather_data ['daily']['data'][3]['time'].to_i)
+      @day_three_icon = icons [@weather_data ['daily']['data'][3]['icon']]
+      @day_three_hi = @weather_data ['daily']['data'][3]['temperatureHigh'].to_i
+      @day_three_low = @weather_data ['daily']['data'][3]['temperatureLow'].to_i
 
-    @day_six_time = Time.at( weather_data ['daily']['data'][5]['time'].to_i)
-    @day_six_icon = icons [weather_data ['daily']['data'][5]['icon']]
-    @day_six_hi = weather_data ['daily']['data'][5]['temperatureHigh'].to_i
-    @day_six_low = weather_data ['daily']['data'][5]['temperatureLow'].to_i
+      @day_four_time = Time.at( @weather_data ['daily']['data'][4]['time'].to_i)
+      @day_four_icon = icons [@weather_data ['daily']['data'][4]['icon']]
+      @day_four_hi = @weather_data ['daily']['data'][4]['temperatureHigh'].to_i
+      @day_four_low = @weather_data ['daily']['data'][4]['temperatureLow'].to_i
 
-  end
+      @day_five_time = Time.at( @weather_data ['daily']['data'][5]['time'].to_i)
+      @day_five_icon = icons [@weather_data ['daily']['data'][5]['icon']]
+      @day_five_hi = @weather_data ['daily']['data'][5]['temperatureHigh'].to_i
+      @day_five_low = @weather_data ['daily']['data'][5]['temperatureLow'].to_i
+
+      @day_six_time = Time.at( @weather_data ['daily']['data'][6]['time'].to_i)
+      @day_six_icon = icons [@weather_data ['daily']['data'][6]['icon']]
+      @day_six_hi = @weather_data ['daily']['data'][6]['temperatureHigh'].to_i
+      @day_six_low = @weather_data ['daily']['data'][6]['temperatureLow'].to_i
+
+    end
 
 end

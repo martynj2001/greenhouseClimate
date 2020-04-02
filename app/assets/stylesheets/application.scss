@@ -13,7 +13,24 @@
 .icon-sm {
     font-size: 50px;
 }
+.icon-xs {
+    font-size: 40px;
+}
 
 .weather_forecast {
     border-style: 2px solid black;
+}
+.online {
+    font-family: 'Orbitron', sans-serif;
+    color: green;
+}
+.offline {
+    font-family: 'Orbitron', sans-serif;
+    color: red;
+}
+.bg-violet{
+    background-color: rebeccapurple;
+}
+.bg-yellow{
+    background-color: yellow;
 }
