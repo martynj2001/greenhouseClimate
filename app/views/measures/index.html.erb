@@ -20,13 +20,6 @@
     </div> <!-- row -->
   </div>
 
-  
-  <p>Tomorrow UNIX - <%=@weather_data ['daily']['data'][1]['time']%></p>
-  <p>Tomorrow Time Obj - <%=Time.at( @weather_data ['daily']['data'][1]['time'].to_i)%></p>
-  <p>Today Time Obj - <%=@current_time%></p>
-  <p>Tomorrow Time Obj strftime - <%=Time.at( @weather_data ['daily']['data'][1]['time'].to_i).strftime("%a %d %b %y")%></p>
-
-
   <div id='latest_data' class="jumbotron p-1 p-md-5 text-center rounded bg-light">
     <h3 class='mb-4'>Local Current & Forecasted Weather</h3>
     
