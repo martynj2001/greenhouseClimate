@@ -9,7 +9,9 @@ class PumpController < ApplicationController
   def set_pump_status
     @@pumpStatus = params[:status]
     if @@pumpStatus == "|1|"
-        flash[:notice] = "You have turned the Greenhouse watering system ON"      
+        flash[:notice] = "You have turned the Garden watering system ON" 
+    elsif @@pumpStatus == "|2|"
+      flash[:notice] = "You have turned the Green House (only) watering system ON"
     else
         flash[:alert] = "You have turned the Greenhouse watering system OFF" 
     end

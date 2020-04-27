@@ -99,7 +99,17 @@ void setup()
 
 void loop()
 {
-  setColor(0,255,0);
+  //setColor(0,255,0);
+  //Control the screen backlight and sleep mode
+  if (digitalRead(SCREEN_WAKE) == LOW) {
+    //Wake Screen & turn on backlight & update information
+    digitalWrite(BACKLIGHT, 0);
+    //myGLCD.disableSleep();
+  }
+  else {
+    digitalWrite(BACKLIGHT, 1);
+    //myGLCD.enableSleep();
+  }
   // if there's incoming data from the net connection send it out the serial port
   // this is for debugging purposes only
   while (client.available()) {
@@ -183,7 +193,7 @@ void printWifiStatus()
 
   //Display connection on LCD
   myGLCD.setFont(SmallFont);
-  myGLCD.print("Wifi", LEFT, 40);
+  myGLCD.print("Wifi", LEFT, 0);
 }
 
 void getSensorData()

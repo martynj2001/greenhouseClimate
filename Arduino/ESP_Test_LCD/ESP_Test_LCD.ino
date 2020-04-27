@@ -28,9 +28,9 @@ int status = WL_IDLE_STATUS;  // the Wifi radio's status
 const char server[] = "polar-headland-35646.herokuapp.com";
 
 unsigned long lastPOSTConnectionTime = 0;         // last time you connected to the server, in milliseconds
-const unsigned long POSTInterval = 60000; // delay between updates, in milliseconds
+const unsigned long POSTInterval = 60000; // delay between updates, in milliseconds (every 15 mins in production)
 unsigned long lastGETConnectionTime = 0;         // last time you connected to the server, in milliseconds
-const unsigned long GETInterval = 10000; // delay between updates, in milliseconds
+const unsigned long GETInterval = 20000; // delay between updates, in milliseconds (set higher in production)
 
 // Initialize the Ethernet client object
 WiFiEspClient client;
@@ -93,16 +93,39 @@ void setup()
   }
 
   Serial.println("You're connected to the network");
+
   
   printWifiStatus();
 }
 
 void loop()
 {
-  setColor(0,255,0);
+  //Control the screen backlight and sleep mode
+  if (digitalRead(SCREEN_WAKE) == LOW) {
+    //Wake Screen & turn on backlight & update information
+    digitalWrite(BACKLIGHT, 0);
+    //myGLCD.disableSleep();
+  }
+  else {
+    digitalWrite(BACKLIGHT, 1);
+    //myGLCD.enableSleep();
+  }
+  setColor(0,0,0);
   // if there's incoming data from the net connection send it out the serial port
   // this is for debugging purposes only
-  while (client.available()) {
+   /*while(client.connected())
+   {
+      // There is a client connected. Is there anything to read?
+      while(client.available() > 0)
+      {
+         char c = client.read();
+         Serial.print(c);
+      }
+      Serial.println();
+      Serial.println("Waiting for more data...");
+      delay(100); // Have a bit of patience...
+   }*/
+  while(client.available()) {
     char c = client.read();
     parseHTTPResponse(c);
   }
@@ -115,8 +138,6 @@ void loop()
       httpPOSTRequest();
     }
   }
-
-  
 }
 
 // this method makes a HTTP connection to the server
@@ -155,6 +176,8 @@ void httpGETRequest()
     // note the time that the connection was made
     lastGETConnectionTime = millis();
     Serial.println("Sent GET request to server");
+    setColor(255, 0, 0);
+    delay(1000);    
   }
   else {
     // if you couldn't make a connection
@@ -183,7 +206,7 @@ void printWifiStatus()
 
   //Display connection on LCD
   myGLCD.setFont(SmallFont);
-  myGLCD.print("Wifi", LEFT, 40);
+  myGLCD.print("Wifi", LEFT, 0);
 }
 
 void getSensorData()
@@ -212,6 +235,7 @@ void sendSensorData(String value){
     Serial.println("Sent POST request to server");
     setColor(0,0,255);
     delay(1000);
+    
   }  
 }
 
@@ -224,6 +248,7 @@ void setColor(int red, int green, int blue)
 
 static void parseHTTPResponse(char c)
 {
+  Serial.print(c);
   if(c == '|'|| counter == 1){
     counter++;
     if(counter == 2){

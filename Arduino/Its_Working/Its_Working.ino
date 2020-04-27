@@ -1,24 +1,18 @@
-
-
 /*
  WiFiEsp example: WebClientRepeating
-
  This sketch connects to a web server and makes an HTTP request
  using an Arduino ESP8266 module.
  It repeats the HTTP call each 10 seconds.
-
  For more details see: http://yaab-arduino.blogspot.com/p/wifiesp.html
 */
 
 #include "WiFiEsp.h"
 #include <dht.h>
-
-#include <LCD5110_Basic.h>
 #include "arduino_secrets.h"
 // Emulate Serial1 on pins 6/7 if not present
 #ifndef HAVE_HWSERIAL1
 #include "SoftwareSerial.h"
-SoftwareSerial Serial1(6, 7); // RX, TX // 7, 6
+SoftwareSerial Serial1(6, 7); // RX, TX
 #endif
 
 char ssid[] = SECRET_SSID;            
@@ -40,6 +34,11 @@ dht dhtIn;
 float temp_in, temp_out, hum_in, hum_out, moisture;
 // TO-DO - impliment moisture sensor.
 
+//LEDs
+int redPin = 4;
+int greenPin = 3;
+int bluePin = 2;
+
 //Parse Counter
 int counter = 0;
 
@@ -50,18 +49,12 @@ const int WaterValue = 307;  //you need to replace this value with Value_2
 int intervals = (AirValue - WaterValue)/3;
 int soilMoistureState = DRY;
 
-//Nokia Screen
-LCD5110 myGLCD(47,46,45,43,44);
-extern uint8_t SmallFont[];
-extern uint8_t MediumNumbers[];
-extern uint8_t BigNumbers[];
-
 void setup()
 {
   // initialise LED pins -> OUTPUT
-  pinMode(RED_LED, OUTPUT);
-  pinMode(GREEN_LED, OUTPUT);
-  pinMode(BLUE_LED, OUTPUT);
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
   // initialise Pump
   pinMode(PUMP_PIN, OUTPUT);
   // initialize serial for debugging
@@ -70,12 +63,6 @@ void setup()
   Serial1.begin(115200);
   // initialize ESP module
   WiFi.init(&Serial1);
-
-  //Initilaise screen
-  myGLCD.InitLCD();
-  pinMode(BACKLIGHT, OUTPUT);
-  pinMode(SCREEN_WAKE, INPUT_PULLUP);
-  digitalWrite(BACKLIGHT, 1);
 
   // check for the presence of the shield
   if (WiFi.status() == WL_NO_SHIELD) {
@@ -180,10 +167,6 @@ void printWifiStatus()
   Serial.print("Signal strength (RSSI):");
   Serial.print(rssi);
   Serial.println(" dBm");
-
-  //Display connection on LCD
-  myGLCD.setFont(SmallFont);
-  myGLCD.print("Wifi", LEFT, 40);
 }
 
 void getSensorData()
@@ -217,9 +200,9 @@ void sendSensorData(String value){
 
 void setColor(int red, int green, int blue)
 {
-  analogWrite(RED_LED, red);
-  analogWrite(GREEN_LED, green);
-  analogWrite(BLUE_LED, blue);  
+  analogWrite(redPin, red);
+  analogWrite(greenPin, green);
+  analogWrite(bluePin, blue);  
 }
 
 static void parseHTTPResponse(char c)
