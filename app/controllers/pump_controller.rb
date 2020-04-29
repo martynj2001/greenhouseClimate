@@ -13,7 +13,7 @@ class PumpController < ApplicationController
     elsif @@pumpStatus == "|2|"
       flash[:notice] = "You have turned the Green House (only) watering system ON"
     else
-        flash[:alert] = "You have turned the Greenhouse watering system OFF" 
+        flash[:alert] = "The Watering Complete" 
     end
     redirect_to measures_path
   end

@@ -42,7 +42,7 @@ class MeasuresController < ApplicationController
         format.json { render json: @measure.errors, status: :unprocessable_entity }
       end
     end
-    
+    redirect_to pump_set_pump_status_path(:status => measure_params[:pump_status])
   end
 
   # PATCH/PUT /measures/1
@@ -86,7 +86,7 @@ class MeasuresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def measure_params
-      params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in, :soil_moisture)
+      params.require(:measure).permit(:temp_out, :temp_in, :humidity_out, :humidity_in, :pump_status)
     end
 
     def setOnline(state)
@@ -141,6 +141,8 @@ class MeasuresController < ApplicationController
         @uvindex = 'bg-transparent'
       end
       @current_percp = (@weather_data ['currently']['precipProbability'] * 100).to_i
+      @current_high = @weather_data ['daily']['data'][0]['temperatureHigh']
+      @current_low = @weather_data ['daily']['data'][0]['temperatureLow']
       
       #weather forcast
       @weekly_summary = @weather_data ['daily']['summary']
