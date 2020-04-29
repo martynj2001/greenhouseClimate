@@ -4,7 +4,9 @@
 
   <div id='latest_data' class="jumbotron p-1 p-md-5 text-center text-white rounded bg-secondary">
     <h3 class='mb-4'>Watering System</h3>
-    <p> Pump Status: <%= @measures[0].pump_status%>
+    <% unless @measures[0].nil? %>
+    <p> Pump Status: <%= @measures[0].pump_status%> </p>
+    <%end%>
     <div class='row'>
           <div class = 'col-md-4'>
             <%= link_to 'Garden & Green House', pump_set_pump_status_path(:status => "|1|"), class: 'btn btn-lg btn-block btn-outline-success' %>
