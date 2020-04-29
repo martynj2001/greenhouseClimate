@@ -42,7 +42,7 @@ class MeasuresController < ApplicationController
         format.json { render json: @measure.errors, status: :unprocessable_entity }
       end
     end
-    redirect_to pump_set_pump_status_path(:status => measure_params[:pump_status])
+    #redirect_to pump_set_pump_status_path(:status => measure_params[:pump_status])
   end
 
   # PATCH/PUT /measures/1
