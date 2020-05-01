@@ -211,3 +211,16 @@
   <%= line_chart charts_hour_humidity_in_path, refresh: 60, xtitle: "Time", ytitle: "Humidity", suffix: "%", messages:{empty: "Sorry.... No Data Yet!"}%>-->
 
   <%= link_to 'Remove All', remove_all_measures_path, class: 'btn btn-sm btn-outline-danger' %>
+  <% @measures.each do |measure|%>
+    <div class = 'list-group-item list-group-item-action'>
+      
+        <div class='row'>
+          <div class='col-2 '><%=measure.created_at.strftime("%d %b %y @ %k:%M ")%></div>
+            <div class='col-2'><%= measure.temp_out%></div>
+            <div class='col-2'><%= measure.temp_in%></div>
+            <div class='col-2'><%= measure.pump_status%></div>
+        </div>
+      
+    </div>
+  <%end%>
+
