@@ -42,10 +42,8 @@ class MeasuresController < ApplicationController
         format.json { render json: @measure.errors, status: :unprocessable_entity }
       end
     end
-    pumpstatus = "|" + measure_params[:pump_status].to_s + "|"
-    logger.debug "pumpstatus = #{pumpstatus}"
-    logger.debug "redirecting to PumpController..."
-    redirect_to pump_set_pump_status_path(:status => pumpstatus) and return
+    @@pumpStatus = "|" + measure_params[:pump_status].to_s + "|"
+    logger.debug "@@pumpStatus has been set to:  #{@@pumpStatus}"
   end
 
   # PATCH/PUT /measures/1
@@ -80,6 +78,12 @@ class MeasuresController < ApplicationController
     flash[:notice] = "You have removed all measurements!"
     redirect_to measures_path
   end
+
+  def pumpStatus
+    @@pumpStatus
+  end
+
+  helper_method :pumpStatus
 
   private
     # Use callbacks to share common setup or constraints between actions.
