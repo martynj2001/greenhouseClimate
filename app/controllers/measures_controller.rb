@@ -31,7 +31,7 @@ class MeasuresController < ApplicationController
   # Recieve data from Arduino and save in database
   def create
     @measure = Measure.new(measure_params)
-    
+    logger.debug "New Measure: #{@measure.attributes.inspect}"
     respond_to do |format|
       if @measure.save
         format.html { redirect_to @measure, notice: 'Measure was successfully created.' }
@@ -42,7 +42,10 @@ class MeasuresController < ApplicationController
         format.json { render json: @measure.errors, status: :unprocessable_entity }
       end
     end
-    #redirect_to pump_set_pump_status_path(:status => measure_params[:pump_status])
+    pumpstatus = "|" + measure_params[:pump_status].to_s + "|"
+    logger.debug "pumpstatus = #{pumpstatus}"
+    logger.debug "redirecting to PumpController..."
+    redirect_to pump_set_pump_status_path(:status => pumpstatus) and return
   end
 
   # PATCH/PUT /measures/1

@@ -7,7 +7,9 @@ class PumpController < ApplicationController
   end
 
   def set_pump_status
+    logger.dubug "params[:status] = #{params[:status]}"
     @@pumpStatus = params[:status]
+    logger.dubug "@@pumpStatus = #{@@pumpStatus}"
     if @@pumpStatus == "|1|"
         flash[:notice] = "You have turned the Garden watering system ON" 
     elsif @@pumpStatus == "|2|"
@@ -15,7 +17,6 @@ class PumpController < ApplicationController
     else
         flash[:alert] = "The Watering Complete" 
     end
-    redirect_to measures_path
   end
 
   helper_method :pumpStatus
