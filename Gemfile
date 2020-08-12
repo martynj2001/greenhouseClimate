@@ -39,7 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Custom Gems
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.5'
-gem 'chartkick', '~> 3.3', '>= 3.3.1'
+gem 'chartkick', '~> 3.4'
 gem 'groupdate', '~> 5.0'
 gem 'sidekiq', '~> 6.0', '>= 6.0.6'
 gem 'twitter', '~> 7.0'
