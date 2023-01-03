@@ -45,7 +45,7 @@ gem 'sidekiq', '~> 6.0', '>= 6.0.6'
 gem 'twitter', '~> 7.0'
 gem 'darksky_weather-api'
 gem 'json', '~> 2.3'
-gem 'httparty', '~> 0.18.0'
+gem 'httparty', '~> 0.21.0'
 gem 'weather-seven-rails', '~> 1.0', '>= 1.0.1'
 
 # End Custom Gems
